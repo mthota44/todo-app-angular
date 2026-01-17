@@ -1,29 +1,19 @@
 <h2>Angular Todo App</h2>
 
-<!-- Two-way Binding -->
-<input
-  type="text"
-  [formControl]="todoControl"
-  placeholder="Enter todo"
-/>
-<!-- Event + Property Binding -->
-<button   
-  (click)="addTodo()" 
-  [disabled]="todoControl.invalid">
-  Add Todo
-</button>
+<form [formGroup]="todoForm" (ngSubmit)="addTodo()">
+  <input type="text" formControlName="todo" placeholder="Enter todo" />
+  <button type="submit" [disabled]="todoForm.invalid">
+    Add Todo
+  </button>
+</form>
+
 
 <hr />
 
-<!-- Structural Directive -->
 <p *ngIf="todos.length === 0">No Todos Available</p>
 
 <ul>
-  <!-- ngFor + ngClass -->
-  <li
-    *ngFor="let todo of todos"
-    [ngClass]="{ completed: todo.completed }"
-  >
+  <li *ngFor="let todo of todos" [ngClass]="{ completed: todo.completed }">
     <span (click)="toggleTodo(todo)">
       {{ todo.title }}
     </span>
@@ -31,3 +21,78 @@
     <button (click)="deleteTodo(todo.id)">❌</button>
   </li>
 </ul>
+
+<hr />
+<p>*************************************************************************************************
+
+<div class="login-form-wrapper">
+    <h2>Register Account</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <div class="field">
+            <label>Email</label>
+            <input type="email" formControlName="email" placeholder="Enter email">
+
+            <span class="error-msg" *ngIf="
+          loginForm.get('email')?.touched &&
+          loginForm.get('email')?.errors?.['required']
+        ">
+                Email is required
+            </span>
+
+            <span class="error-msg" *ngIf="
+          loginForm.get('email')?.touched &&
+          loginForm.get('email')?.errors?.['email']
+        ">
+                Invalid email format
+            </span>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="field">
+            <label>Password</label>
+            <input type="password" formControlName="password" placeholder="Min 8 chars, 1 Cap, 1 Num">
+
+            <div class="error-msg" *ngIf="
+          loginForm.get('password')?.touched &&
+          loginForm.get('password')?.invalid
+        ">
+
+                <p *ngIf="loginForm.get('password')?.errors?.['required']">
+                    Password is required
+                </p>
+
+                <p *ngIf="loginForm.get('password')?.errors?.['minlength']">
+                    Minimum 8 characters required
+                </p>
+
+                <p *ngIf="loginForm.get('password')?.errors?.['pattern']">
+                    Must include 1 uppercase and 1 number
+                </p>
+
+            </div>
+        </div>
+
+        <!-- CONFIRM PASSWORD -->
+        <div class="field">
+            <label>Confirm Password</label>
+            <input type="password" formControlName="confirmPassword" placeholder="Repeat password">
+
+            <span class="error-msg" *ngIf="
+          loginForm.get('confirmPassword')?.touched &&
+          loginForm.get('confirmPassword')?.hasError('passwordMismatch')
+        ">
+                Passwords do not match
+            </span>
+        </div>
+
+        <button type="submit" [disabled]="loginForm.invalid">
+            Sign Up
+        </button>
+
+    </form>
+
+    <hr>
+
+</div>
