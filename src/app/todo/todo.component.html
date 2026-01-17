@@ -1,0 +1,23 @@
+<h2>Angular Todo App</h2>
+
+<form [formGroup]="todoForm" (ngSubmit)="addTodo()">
+    <input type="text" formControlName="todo" placeholder="Enter todo" />
+    <button type="submit" [disabled]="todoForm.invalid">
+        Add Todo
+    </button>
+</form>
+
+
+<hr />
+
+<p *ngIf="todos.length === 0">No Todos Available</p>
+
+<ul>
+    <li *ngFor="let todo of todos" [ngClass]="{ completed: todo.completed }">
+        <span (click)="toggleTodo(todo)">
+            {{ todo.title }}
+        </span>
+
+        <button (click)="deleteTodo(todo.id)">❌</button>
+    </li>
+</ul>

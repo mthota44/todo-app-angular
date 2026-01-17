@@ -1,11 +1,11 @@
-import { Component,inject } from '@angular/core';
-import {ReactiveFormsModule,FormGroup,FormControl,FormBuilder,AbstractControl,ValidationErrors,Validators} from '@angular/forms';
-import { NgIf, NgFor, NgClass,CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder, AbstractControl, ValidationErrors, Validators } from '@angular/forms';
+import { NgIf, NgFor, NgClass, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })

@@ -1,74 +1,74 @@
 <h2>User Registration</h2>
 
-    <form [formGroup] = "userForm" (ngSubmit)="submitUserForm()">
+<form [formGroup]="userForm" (ngSubmit)="submitUserForm()">
 
-        <fieldset formGroupName="userInfo">
-            <legend>User Info</legend>
+    <fieldset formGroupName="userInfo">
+        <legend>User Info</legend>
 
-            <label>
-                Username:
-                <input type="text" formControlName="username">
-            </label>
+        <label>
+            Username:
+            <input type="text" formControlName="username">
+        </label>
 
-            <br><br>
+        <br><br>
 
-            <label>
-                Age:
-                <input type="number" formControlName="age">
-            </label>
+        <label>
+            Age:
+            <input type="number" formControlName="age">
+        </label>
 
-            <br><br>
+        <br><br>
 
-            <label>
-                Gender:
-                <select formControlName="gender">
-                    <option value="">Select</option>
-                    <option value="MALE">Male</option>
-                    <option value="FEMALE">Female</option>
-                </select>
-            </label>
-            <br>
-            <input type="text" formControlName="mobile" placeholder="Enter mobile number">
-            <p class="error-msg" *ngIf="
-        loginForm.get('userInfo.mobile')?.touched &&
-        loginForm.get('userInfo.mobile')?.hasError('required')">
-                Mobile number is required
-         </p>
-
-            <p class="error-msg" *ngIf="
-        loginForm.get('userInfo.mobile')?.touched &&
-        loginForm.get('userInfo.mobile')?.hasError('invalidMobile')">
-                Enter a valid 10-digit mobile number
-            </p>
-        </fieldset>
-
+        <label>
+            Gender:
+            <select formControlName="gender">
+                <option value="">Select</option>
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
+            </select>
+        </label>
         <br>
+        <input type="text" formControlName="mobile" placeholder="Enter mobile number">
+        <p class="error-msg" *ngIf="
+        userForm.get('userInfo.mobile')?.touched &&
+        userForm.get('userInfo.mobile')?.hasError('required')">
+            Mobile number is required
+        </p>
 
-        <fieldset formGroupName="address">
-            <legend>Address</legend>
+        <p class="error-msg" *ngIf="
+        userForm.get('userInfo.mobile')?.touched &&
+        userForm.get('userInfo.mobile')?.hasError('invalidMobile')">
+            Enter a valid 10-digit mobile number
+        </p>
+    </fieldset>
 
-            <label>
-                Street:
-                <input type="text" formControlName="street">
-            </label>
+    <br>
 
-            <br><br>
+    <fieldset formGroupName="address">
+        <legend>Address</legend>
 
-            <label>
-                City:
-                <input type="text" formControlName="city">
-            </label>
+        <label>
+            Street:
+            <input type="text" formControlName="street">
+        </label>
 
-            <br><br>
+        <br><br>
 
-            <label>
-                Pincode:
-                <input type="text" formControlName="pincode">
-            </label>
-        </fieldset>
+        <label>
+            City:
+            <input type="text" formControlName="city">
+        </label>
 
-        <br>
+        <br><br>
 
-        <button type="submit" [disabled]="userForm.invalid">Submit</button>
+        <label>
+            Pincode:
+            <input type="text" formControlName="pincode">
+        </label>
+    </fieldset>
 
-    </form>
+    <br>
+
+    <button type="submit" [disabled]="userForm.invalid">Submit</button>
+
+</form>
