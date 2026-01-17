@@ -21,3 +21,16 @@
         <button (click)="deleteTodo(todo.id)">❌</button>
     </li>
 </ul>
+
+<hr style="margin-top: 30px;">
+
+<!-- Sub-navigation for child routes -->
+<nav style="margin-top: 20px;">
+    <strong>More Options: </strong>
+    <!-- Note: relative paths 'info' and 'archive' will append to current path '/todo' -->
+    <a routerLink="info" style="margin-right: 10px; cursor: pointer; color: blue;">Show Info</a> |
+    <a routerLink="archive" style="margin-left: 10px; cursor: pointer; color: blue;">Show Archive</a>
+</nav>
+
+<!-- This is the nested outlet where Info or Archive components will appear -->
+<router-outlet></router-outlet>

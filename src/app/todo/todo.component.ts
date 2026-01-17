@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-todo',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterOutlet, RouterLink],
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.css'
 })
