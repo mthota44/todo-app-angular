@@ -97,4 +97,9 @@ export class TodoComponent implements OnInit, OnDestroy {
   deleteTodo(id: number) {
     this.todoService.deleteTodo(id);
   }
+
+  // Method to test the Global Error Handler
+  throwTestError() {
+    throw new Error('This is a simulated error to test the Global Error Handler!');
+  }
 }
