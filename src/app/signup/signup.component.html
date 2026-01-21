@@ -29,17 +29,17 @@
         </label>
         <br>
         <input type="text" formControlName="mobile" placeholder="Enter mobile number">
-        <p class="error-msg" *ngIf="
-        userForm.get('userInfo.mobile')?.touched &&
-        userForm.get('userInfo.mobile')?.hasError('required')">
+        @if (userForm.get('userInfo.mobile')?.touched && userForm.get('userInfo.mobile')?.hasError('required')) {
+        <p class="error-msg">
             Mobile number is required
         </p>
+        }
 
-        <p class="error-msg" *ngIf="
-        userForm.get('userInfo.mobile')?.touched &&
-        userForm.get('userInfo.mobile')?.hasError('invalidMobile')">
+        @if (userForm.get('userInfo.mobile')?.touched && userForm.get('userInfo.mobile')?.hasError('invalidMobile')) {
+        <p class="error-msg">
             Enter a valid 10-digit mobile number
         </p>
+        }
     </fieldset>
 
     <br>

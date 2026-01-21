@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder, AbstractControl, ValidationErrors, Validators } from '@angular/forms';
-import { NgIf, NgFor, NgClass, CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-signup',
