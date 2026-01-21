@@ -1,0 +1,80 @@
+<div class="container">
+    <h2>Day 5 Tasks - Restful API CRUD</h2>
+
+    <!-- Form Section -->
+    <div class="form-section">
+        <h3>{{ selectedObjectId ? 'Edit Product' : 'Add New Product' }}</h3>
+
+        <form [formGroup]="objectForm" (ngSubmit)="onSubmit()">
+            <div class="field">
+                <label>Name (Required)</label>
+                <input type="text" formControlName="name" placeholder="Enter product name">
+                @if (objectForm.get('name')?.touched && objectForm.get('name')?.invalid) {
+                <span class="error-msg">Name is required</span>
+                }
+            </div>
+
+            <div class="field">
+                <label>Color</label>
+                <input type="text" formControlName="color" placeholder="e.g. Red, Blue">
+            </div>
+
+            <div class="field">
+                <label>Price</label>
+                <input type="number" formControlName="price" placeholder="Enter price">
+            </div>
+
+            <div class="actions">
+                <button type="submit" [disabled]="objectForm.invalid || loading" title="Fill required fields to enable">
+                    {{ selectedObjectId ? 'Update' : 'Create' }}
+                </button>
+
+                @if (objectForm.invalid) {
+                <span class="error-msg" style="align-self: center; margin-left: 10px; font-size: 0.8rem;">
+                    (Name is required)
+                </span>
+                }
+
+                @if (selectedObjectId) {
+                <button type="button" (click)="resetForm()">Cancel</button>
+                }
+            </div>
+        </form>
+    </div>
+
+    <hr>
+
+    <!-- List Section -->
+    <h3>Product List</h3>
+
+    @if (loading) {
+    <p>Loading...</p>
+    }
+
+    @if (error) {
+    <p class="error-msg">{{ error }}</p>
+    }
+
+    <div class="grid">
+        @for (obj of objects; track obj.id) {
+        <div class="card">
+            <h4>{{ obj.name }}</h4>
+            <div class="details">
+                @if (obj.data) {
+                <p><strong>Color:</strong> {{ obj.data?.color || 'N/A' }}</p>
+                <p><strong>Price:</strong> {{ obj.data?.price || 'N/A' }}</p>
+                <!-- Show other random data keys if specific ones aren't there? For now keep simple -->
+                } @else {
+                <p><em>No details available</em></p>
+                }
+            </div>
+
+            <div class="card-actions">
+                <button (click)="editObject(obj)">Edit</button>
+                <button class="delete-btn" (click)="deleteObject(obj.id)">Delete</button>
+            </div>
+        </div>
+        }
+    </div>
+
+</div>
