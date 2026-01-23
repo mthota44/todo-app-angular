@@ -78,6 +78,12 @@ export const routes: Routes = [
         loadComponent: () => import('./lifecycle-demo/lifecycle-demo.component').then(m => m.LifecycleDemoComponent)
     },
 
+    // --- RXJS DEMO ---
+    {
+        path: 'rxjs',
+        loadComponent: () => import('./rxjs-demo/rxjs-demo.component').then(m => m.RxjsDemoComponent)
+    },
+
     // --- REDIRECT ROUTE & DEFAULT PATH ---
     // Concept: Handling the empty path (Root URL: localhost:4200/)
     // 'redirectTo': Tells Angular to go to another path immediately.
