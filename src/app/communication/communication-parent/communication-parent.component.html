@@ -1,0 +1,64 @@
+<div class="container">
+    <h1>📡 Types of Communication Demo</h1>
+    <p>This page demonstrates how Angular components talk to each other.</p>
+
+    <div class="row">
+        <!-- PARENT SECTION -->
+        <div class="col parent-box">
+            <h2>👨 Parent Component</h2>
+
+            <!-- CONTROLLING INPUT FOR CHILD -->
+            <div class="section">
+                <strong>1. Send to Child (&#64;Input):</strong><br>
+                <input type="text" [(ngModel)]="inputForChild" placeholder="Type here...">
+                <br>
+                <small>Typing here updates 'parentData' in Child automatically.</small>
+            </div>
+
+            <!-- RECEIVING OUTPUT FROM CHILD -->
+            <div class="section">
+                <strong>2. Received from Child (&#64;Output):</strong>
+                <p class="highlight">{{ dataFromChild }}</p>
+            </div>
+
+            <!-- USING VIEWCHILD -->
+            <div class="section">
+                <strong>3. Access Child Method (&#64;ViewChild):</strong><br>
+                <button (click)="triggerChildMethod()">👋 Wave at Child</button>
+                <br>
+                <small>This calls a function inside the child directly!</small>
+            </div>
+
+            <!-- SERVICE COMMUNICATION -->
+            <div class="section">
+                <strong>4. Shared Service Data:</strong>
+                <p class="highlight">{{ serviceData }}</p>
+                <button (click)="updateService()">Update Service Data</button>
+            </div>
+        </div>
+
+        <!-- CHILD SECTION (Loaded via Selector) -->
+        <div class="col">
+            <!-- 
+            KEY SYNTAX:
+            [parentData]="inputForChild"    -> PASSING DATA DOWN (&#64;Input)
+            (childEvent)="handleChildEvent($event)" -> LISTENING TO EVENTS UP (&#64;Output)
+        -->
+            <app-communication-child [parentData]="inputForChild" (childEvent)="handleChildEvent($event)">
+            </app-communication-child>
+        </div>
+    </div>
+
+    <div class="explanation">
+        <h3>📚 Concepts Explained</h3>
+        <ul>
+            <li><strong>&#64;Input()</strong>: Parent passes value ⬇️ to Child (like props in React).</li>
+            <li><strong>&#64;Output()</strong>: Child emits event ⬆️ to Parent.</li>
+            <li><strong>&#64;ViewChild</strong>: Parent grabs the whole Child instance to call methods directly.</li>
+            <li><strong>Service</strong>: A shared middle-man data store that anyone can read/write to.</li>
+            <li><strong>ngOnChanges</strong>: A lifecycle hook that runs when an &#64;Input value changes (On Getting
+                Data).
+            </li>
+        </ul>
+    </div>
+</div>

@@ -5,6 +5,7 @@ import { TodoComponent } from './todo/todo.component';
 import { TodoInfoComponent } from './todo/components/todo-info/todo-info.component';
 import { TodoArchiveComponent } from './todo/components/todo-archive/todo-archive.component';
 import { Day5Component } from './day5/day5.component';
+import { CommunicationParentComponent } from './communication/communication-parent/communication-parent.component';
 
 /**
  * ==============================================================================
@@ -48,6 +49,34 @@ export const routes: Routes = [
 
     // --- NEW ROUTE ---
     { path: 'day5', component: Day5Component },
+
+    // --- COMMUNICATION CONCEPTS ROUTE ---
+    { path: 'communication', component: CommunicationParentComponent },
+
+    // --- MODERN SIGNALS COMMUNICATION ---
+    {
+        path: 'modern-communication',
+        loadComponent: () => import('./communication/modern-parent/modern-parent.component').then(m => m.ModernParentComponent)
+    },
+
+    // --- ROUTES DEMO ---
+    {
+        path: 'routes-demo',
+        loadComponent: () => import('./routes-demo/routes-demo.component').then(m => m.RoutesDemoComponent),
+        children: [
+            // The ':id' is a placeholder for the variable.
+            {
+                path: 'product/:id',
+                loadComponent: () => import('./routes-demo/product-detail/product-detail.component').then(m => m.ProductDetailComponent)
+            }
+        ]
+    },
+
+    // --- LIFECYCLE HOOKS DEMO ---
+    {
+        path: 'lifecycle-hooks',
+        loadComponent: () => import('./lifecycle-demo/lifecycle-demo.component').then(m => m.LifecycleDemoComponent)
+    },
 
     // --- REDIRECT ROUTE & DEFAULT PATH ---
     // Concept: Handling the empty path (Root URL: localhost:4200/)
