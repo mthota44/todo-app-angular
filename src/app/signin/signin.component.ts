@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-signin',
@@ -11,6 +13,8 @@ import { CommonModule } from '@angular/common';
 })
 export class SigninComponent {
   private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   // user registrations forms 
   loginForm: FormGroup = this.fb.group({
@@ -34,6 +38,14 @@ export class SigninComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       console.log('Form Submitted successfully!', this.loginForm);
+
+      // CALL AUTH SERVICE
+      this.authService.login();
+      alert('Login Successful! access to Day 5 is now UNLOCKED 🔓');
+
+      // Redirect to the protected route
+      this.router.navigate(['/day5']);
+
     } else {
       console.warn('Form is invalid! Check the errors on the screen.');
       this.loginForm.markAllAsTouched(); // This highlights all red errors for the user

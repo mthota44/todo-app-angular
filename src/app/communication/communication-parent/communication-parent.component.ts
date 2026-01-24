@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommunicationChildComponent } from '../communication-child/communication-child.component';
@@ -23,7 +23,7 @@ import { CommunicationService } from '../services/communication.service';
     templateUrl: './communication-parent.component.html',
     styleUrls: ['./communication-parent.component.css']
 })
-export class CommunicationParentComponent {
+export class CommunicationParentComponent implements OnInit {
 
     // Data to send to child
     inputForChild: string = 'Initial Data from Parent';
@@ -41,15 +41,17 @@ export class CommunicationParentComponent {
     // This allows us to call child methods directly!
     @ViewChild(CommunicationChildComponent) childComponent!: CommunicationChildComponent;
 
-    constructor(private communicationService: CommunicationService) {
+    private communicationService = inject(CommunicationService);
+
+    ngOnInit() {
         // Subscribe to service updates
         this.communicationService.currentMessage.subscribe(msg => this.serviceData = msg);
     }
 
     // Method to handle event coming from Child (@Output)
-    handleChildEvent(message: string) {
-        this.dataFromChild = message;
-        alert('Received event from Child: ' + message);
+    handleChildEvent($event: string) {
+        this.dataFromChild = $event;
+        alert('Received event from Child: ' + $event);
     }
 
     // Method using @ViewChild to trigger a method inside the child

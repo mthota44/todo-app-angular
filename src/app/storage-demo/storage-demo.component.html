@@ -1,0 +1,59 @@
+<div class="storage-container">
+    <h1>💾 Browser Storage Wrapper</h1>
+    <p>Open <strong>Developer Tools (F12) -> Application Tab</strong> to see the raw data.</p>
+
+    <div class="grid">
+
+        <!-- LOCAL STORAGE -->
+        <div class="card local">
+            <h2>🏠 Local Storage</h2>
+            <p class="desc">Persists even after browser is closed.</p>
+
+            <div class="input-group">
+                <input type="text" [(ngModel)]="localStorageInput" placeholder="Enter persistent data...">
+                <button (click)="saveToLocal()">Save</button>
+                <button class="clear" (click)="clearLocal()">Clear</button>
+            </div>
+
+            <div class="display-box">
+                <strong>Stored Value:</strong>
+                <p>{{ localStorageValue || 'Empty' }}</p>
+            </div>
+        </div>
+
+        <!-- SESSION STORAGE -->
+        <div class="card session">
+            <h2>⏳ Session Storage</h2>
+            <p class="desc">Gone when this tab is closed.</p>
+
+            <div class="input-group">
+                <input type="text" [(ngModel)]="sessionStorageInput" placeholder="Enter temporary data...">
+                <button (click)="saveToSession()">Save</button>
+                <button class="clear" (click)="clearSession()">Clear</button>
+            </div>
+
+            <div class="display-box">
+                <strong>Stored Value:</strong>
+                <p>{{ sessionStorageValue || 'Empty' }}</p>
+            </div>
+        </div>
+
+        <!-- COOKIES -->
+        <div class="card cookie">
+            <h2>🍪 Cookies</h2>
+            <p class="desc">Sent to server with requests.</p>
+
+            <div class="input-group">
+                <input type="text" [(ngModel)]="cookieInput" placeholder="Enter cookie data...">
+                <button (click)="saveCookie()">Set Cookie</button>
+                <button class="clear" (click)="clearCookie()">Eat Cookie</button>
+            </div>
+
+            <div class="display-box">
+                <strong>All Cookies:</strong>
+                <p>{{ cookieValue || 'No cookies found' }}</p>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -6,6 +6,7 @@ import { TodoInfoComponent } from './todo/components/todo-info/todo-info.compone
 import { TodoArchiveComponent } from './todo/components/todo-archive/todo-archive.component';
 import { Day5Component } from './day5/day5.component';
 import { CommunicationParentComponent } from './communication/communication-parent/communication-parent.component';
+import { authGuard } from './core/guards/auth.guard';
 
 /**
  * ==============================================================================
@@ -48,10 +49,30 @@ export const routes: Routes = [
     },
 
     // --- NEW ROUTE ---
-    { path: 'day5', component: Day5Component },
+    // Protected by AuthGuard: Only logged-in users can see this page.
+    { path: 'day5', component: Day5Component, canActivate: [authGuard] },
 
     // --- COMMUNICATION CONCEPTS ROUTE ---
     { path: 'communication', component: CommunicationParentComponent },
+
+    // --- LAZY LOADED ROUTES ---
+    // =================================================================================
+    // 💤 CONCEPT: LAZY LOADING
+    // =================================================================================
+    //
+    // 1. WHAT IS IT?
+    //    Normally, when you open an Angular app, it downloads ALL the code for ALL pages at once (Eager Loading).
+    //    Lazy Loading means we only download the code for a page WHEN THE USER CLICKS ON IT.
+    //
+    // 2. WHY USE IT? (Performance 🚀)
+    //    - Faster Initial Load: The initial bundle size is smaller because it doesn't include every single page.
+    //    - Bandwidth Saving: Users don't download code for pages they never visit.
+    //
+    // 3. SYNTAX: loadComponent
+    //    Instead of `component: ComponentName` (which imports it at the top),
+    //    we use `loadComponent: () => import('...').then(m => m.ComponentName)`.
+    //    This dynamic import tells Webpack/Angular to split this code into a separate "chunk" file.
+    // =================================================================================
 
     // --- MODERN SIGNALS COMMUNICATION ---
     {
@@ -82,6 +103,39 @@ export const routes: Routes = [
     {
         path: 'rxjs',
         loadComponent: () => import('./rxjs-demo/rxjs-demo.component').then(m => m.RxjsDemoComponent)
+    },
+
+    // --- ANGULAR BASICS (THEORY) ---
+    {
+        path: 'angular-basics',
+        children: [
+            {
+                path: '',
+                loadComponent: () => import('./angular-basics/angular-basics.component').then(m => m.AngularBasicsComponent)
+            },
+            {
+                path: 'versions',
+                loadComponent: () => import('./angular-basics/angular-versions/angular-versions.component').then(m => m.AngularVersionsComponent)
+            }
+        ]
+    },
+
+    // --- FORMS DEMO ---
+    {
+        path: 'forms-demo',
+        loadComponent: () => import('./forms-demo/forms-demo.component').then(m => m.FormsDemoComponent)
+    },
+
+    // --- MODULES DEMO ---
+    {
+        path: 'modules-demo',
+        loadComponent: () => import('./modules-demo/modules-demo.component').then(m => m.ModulesDemoComponent)
+    },
+
+    // --- STORAGE DEMO ---
+    {
+        path: 'storage-demo',
+        loadComponent: () => import('./storage-demo/storage-demo.component').then(m => m.StorageDemoComponent)
     },
 
     // --- REDIRECT ROUTE & DEFAULT PATH ---

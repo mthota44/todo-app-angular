@@ -1,0 +1,115 @@
+<div class="basics-container">
+    <header class="page-header">
+        <h1>Angular Basics: A Simple Guide</h1>
+        <p class="subtitle">Understanding the building blocks of your Angular application in plain English.</p>
+    </header>
+
+    <div class="versions-link-container">
+        <a routerLink="versions" class="versions-btn">
+            <span class="btn-icon">🚀</span>
+            <span class="btn-text">Check Angular Versions History</span>
+            <span class="btn-arrow">→</span>
+        </a>
+    </div>
+
+    <section class="concepts-grid">
+        <!-- File Explorations -->
+        <div class="concept-card">
+            <div class="card-header main-ts">
+                <h3>📄 main.ts</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>The "Front Door" key.</strong></p>
+                <p>Think of your app as a house. <code>main.ts</code> is the main entrance whereby Angular starts
+                    "bootstrapping" (loading) your application. It tells Angular which Component to show first (usually
+                    <code>AppComponent</code>).</p>
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <div class="card-header index-html">
+                <h3>📄 index.html</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>The Canvas.</strong></p>
+                <p>Angular is a "Single Page Application" (SPA). This is that single page. It has a tag
+                    <code>&lt;app-root&gt;</code> where Angular injects your entire app. You rarely touch this file
+                    directly.</p>
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <div class="card-header app-config">
+                <h3>📄 app.config.ts</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>The Rule Book.</strong></p>
+                <p>This is where we set up global rules, like "enable routing" or "setup HTTP client". Before standalone
+                    components, this was done in <code>app.module.ts</code>.</p>
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <div class="card-header angular-json">
+                <h3>📄 angular.json</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>The Architect's Blueprint.</strong></p>
+                <p>It tells the CLI how to build your app. Where are the assets (images)? What styles to include
+                    globally? Which <code>index.html</code> to use? It manages the workspace configuration.</p>
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <div class="card-header package-json">
+                <h3>📦 package.json & package-lock.json</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>The Shopping List & Receipt.</strong></p>
+                <ul>
+                    <li><code>package.json</code>: Lists what libraries your app needs (like "Angular", "Bootstrap").
+                        It's like a shopping list.</li>
+                    <li><code>package-lock.json</code>: The detailed receipt. It locks the <em>exact</em> version of
+                        every library installed so everyone on the team has the exact same setup.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <div class="card-header tsconfig">
+                <h3>⚙️ tsconfig files</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>The Translator's Guide.</strong></p>
+                <p>These files tell the TypeScript compiler how to behave. For example, "should we allow strict typing?"
+                    or "target modern JavaScript?".</p>
+                <ul>
+                    <li><code>app</code>: For your actual app code.</li>
+                    <li><code>spec</code>: For testing code.</li>
+                    <li><code>json</code> (root): Base settings.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="theory-section">
+        <h2>Why TypeScript? 🤔</h2>
+        <div class="theory-content">
+            <div class="theory-block">
+                <h3>Why do we use it?</h3>
+                <p>JavaScript is loose. You can set a variable to a number `x = 5`, then change it to a string `x =
+                    "hello"`. This causes crashes in big apps.</p>
+                <p><strong>TypeScript</strong> adds "Types". If you say `x` is a number, it stays a number. It helps
+                    catch errors <em>while you write code</em>, not when the user is running it.</p>
+            </div>
+
+            <div class="theory-block">
+                <h3>Why convert back to JS?</h3>
+                <p>Browsers (like Chrome, Edge) <strong>do not understand TypeScript</strong>. They only speak
+                    JavaScript.</p>
+                <p>So, we possess a compiler (in the build process) that "transpiles" TS code down to standard JS that
+                    the browser can read. This happens automatically when you run <code>ng serve</code>.</p>
+            </div>
+        </div>
+    </section>
+</div>

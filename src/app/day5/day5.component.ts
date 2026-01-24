@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Day5Service } from './day5.service';
 
 @Component({
     selector: 'app-day5',
@@ -11,10 +11,8 @@ import { CommonModule } from '@angular/common';
     styleUrl: './day5.component.css'
 })
 export class Day5Component implements OnInit {
-    private http = inject(HttpClient);
+    private day5Service = inject(Day5Service);
     private fb = inject(FormBuilder);
-
-    private apiUrl = 'https://api.restful-api.dev/objects';
 
     objects: any[] = [];
     selectedObjectId: string | null = null;
@@ -22,7 +20,6 @@ export class Day5Component implements OnInit {
     error: string | null = null;
 
     // Form for Creating/Updating objects
-    // We'll simplisticly handle 'data' as color and price fields
     objectForm: FormGroup = this.fb.group({
         name: ['', Validators.required],
         color: [''],
@@ -36,7 +33,7 @@ export class Day5Component implements OnInit {
     fetchObjects() {
         this.loading = true;
         this.error = null;
-        this.http.get<any[]>(this.apiUrl).subscribe({
+        this.day5Service.getObjects().subscribe({
             next: (data) => {
                 this.objects = data;
                 this.loading = false;
@@ -78,7 +75,7 @@ export class Day5Component implements OnInit {
 
     createObject(payload: any) {
         this.loading = true;
-        this.http.post(this.apiUrl, payload).subscribe({
+        this.day5Service.createObject(payload).subscribe({
             next: (res: any) => {
                 console.log('Created:', res);
                 this.objects.push(res);
@@ -97,7 +94,7 @@ export class Day5Component implements OnInit {
 
     updateObject(id: string, payload: any) {
         this.loading = true;
-        this.http.put(`${this.apiUrl}/${id}`, payload).subscribe({
+        this.day5Service.updateObject(id, payload).subscribe({
             next: (res: any) => {
                 console.log('Updated:', res);
                 const index = this.objects.findIndex(o => o.id === id);
@@ -138,7 +135,7 @@ export class Day5Component implements OnInit {
         if (!confirm('Are you sure you want to delete this item?')) return;
 
         this.loading = true;
-        this.http.delete(`${this.apiUrl}/${id}`).subscribe({
+        this.day5Service.deleteObject(id).subscribe({
             next: (res) => {
                 console.log('Deleted:', res);
                 this.objects = this.objects.filter(o => o.id !== id);

@@ -1,0 +1,108 @@
+<h1>Angular Forms Concepts</h1>
+<p>Open Browser Console (F12) to see details.</p>
+
+<hr>
+
+<!-- 
+    1. SINGLE FORM CONTROL 
+    We use [formControl]="controlName" to bind it to the TS variable.
+-->
+<h3>1. Single Form Control</h3>
+<label>Email: </label>
+<input type="text" [formControl]="emailControl">
+<span *ngIf="emailControl.invalid && emailControl.touched" style="color: red; margin-left: 10px;">
+    Invalid Email!
+</span>
+
+<br><br>
+<button (click)="showFormControl()">Log Control Details</button>
+<button (click)="updateControl()">Update Value Programmatically</button>
+
+<p>Current Value: {{ emailControl.value }}</p>
+
+<hr>
+
+<!-- 
+    2. FORM GROUP 
+    We use [formGroup]="groupName" on the PARENT container (form tag).
+    We use formControlName="name" on the INPUTS (must match keys in TS).
+-->
+<h3>2. Form Group (Login)</h3>
+<form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+
+    <div>
+        <label>Username: </label>
+        <input type="text" formControlName="username">
+        <!-- Simple validation message -->
+        <span *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+            (Required)
+        </span>
+    </div>
+    <br>
+
+    <div>
+        <label>Password: </label>
+        <input type="password" formControlName="password">
+        <span *ngIf="loginForm.get('password')?.errors?.['minlength']">
+            (Min 5 chars)
+        </span>
+    </div>
+    <br>
+
+    <!-- Button disabled if form is invalid -->
+    <button type="submit" [disabled]="loginForm.invalid">Submit Login</button>
+    &nbsp;
+    <button type="button" (click)="submitLogin()">Log Group Details</button>
+
+</form>
+
+<hr>
+
+<!-- 
+    3. FORM BUILDER (With Nested Group)
+-->
+<h3>3. Form Builder (Nested)</h3>
+<form [formGroup]="userProfileForm" (ngSubmit)="submitProfile()">
+
+    <label>First Name: </label>
+    <input formControlName="firstName">
+    <br><br>
+
+    <label>Last Name: </label>
+    <input formControlName="lastName">
+    <br><br>
+
+    <!-- Use formGroupName for the nested object -->
+    <div formGroupName="address" style="border: 1px dashed black; padding: 10px; width: fit-content;">
+        <h4>Address Group</h4>
+
+        <label>Street: </label>
+        <input formControlName="street">
+        <br>
+
+        <label>City: </label>
+        <input formControlName="city">
+    </div>
+
+    <br>
+    <button type="submit">Log Profile Form</button>
+
+</form>
+
+<hr>
+
+<!-- 
+    4. TEMPLATE DRIVEN FORMS (ngModel)
+    We use [(ngModel)]="variableName" for 2-way binding.
+    Note: You usually need 'name="something"' attribute when using ngModel in a <form> tag.
+-->
+<h3>4. Template Driven (ngModel)</h3>
+<div>
+    <label>Favorite Color: </label>
+    <!-- Banana in a Box syntax [()] -->
+    <input type="text" [(ngModel)]="favoriteColor">
+
+    <p>You typed: <strong>{{ favoriteColor }}</strong></p>
+
+    <button (click)="logTemplateDriven()">Log Value to Console</button>
+</div>

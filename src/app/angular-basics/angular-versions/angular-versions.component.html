@@ -1,0 +1,71 @@
+<div class="versions-container">
+    <div class="header">
+        <h1>Angular Evolution 🚀</h1>
+        <p>A journey from AngularJS to the modern Renaissance.</p>
+        <p class="instruction-hint">👇 Click on any card to learn the concepts in depth!</p>
+    </div>
+
+    <div class="timeline">
+        <div class="timeline-item" *ngFor="let v of versions; let i = index" [style.--accent-color]="v.color"
+            (click)="openDetails(v)" tabindex="0" (keydown.enter)="openDetails(v)">
+
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">{{ v.year }}</div>
+
+            <div class="timeline-content">
+                <div class="version-badge" [style.background-color]="v.color">{{ v.version }}</div>
+                <h3>{{ v.title }}</h3>
+                <ul>
+                    <li *ngFor="let feature of v.features">{{ feature }}</li>
+                </ul>
+                <div class="click-hint">Click to learn more →</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DETAILS MODAL -->
+    <div class="modal-overlay" *ngIf="selectedVersion" (click)="closeDetails()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <button class="close-btn" (click)="closeDetails()">×</button>
+
+            <div class="modal-header" [style.background]="selectedVersion.color">
+                <h2>{{ selectedVersion.version }}</h2>
+                <p>{{ selectedVersion.title }}</p>
+            </div>
+
+            <div class="modal-body">
+                <div class="detail-block" *ngFor="let detail of selectedVersion.details">
+                    <h3>📌 {{ detail.title }}</h3>
+                    <p class="detail-description">{{ detail.description }}</p>
+
+                    <!-- Code Snippet -->
+                    <div class="code-box" *ngIf="detail.codeExample">
+                        <div class="code-label" *ngIf="detail.codeExample.label">{{ detail.codeExample.label }}</div>
+                        <pre><code>{{ detail.codeExample.content }}</code></pre>
+                    </div>
+
+                    <!-- Comparison View -->
+                    <div class="comparison-grid" *ngIf="detail.comparison">
+                        <div class="compare-col before">
+                            <span class="compare-badge bad">Before</span>
+                            <h4>{{ detail.comparison.beforeTitle }}</h4>
+                            <pre><code>{{ detail.comparison.beforeCode }}</code></pre>
+                        </div>
+                        <div class="compare-arrow">➜</div>
+                        <div class="compare-col after">
+                            <span class="compare-badge good">After</span>
+                            <h4>{{ detail.comparison.afterTitle }}</h4>
+                            <pre><code>{{ detail.comparison.afterCode }}</code></pre>
+                        </div>
+                    </div>
+
+                    <hr class="divider">
+                </div>
+
+                <div class="empty-state" *ngIf="!selectedVersion.details || selectedVersion.details.length === 0">
+                    <p>More details for this version are coming soon!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

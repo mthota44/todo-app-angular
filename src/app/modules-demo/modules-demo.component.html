@@ -1,0 +1,63 @@
+<div class="modules-container">
+    <header class="page-header">
+        <h1>📦 Angular Modules & Packages</h1>
+        <p class="subtitle">Understanding the "Toolkits" we use to build apps.</p>
+    </header>
+
+    <!-- PACKAGES SECTION -->
+    <section class="section-block">
+        <h2>1. The Warehouse (Packages)</h2>
+        <p class="section-desc">These are the big libraries you install via NPM (`package.json`). Think of them as
+            aisles in a hardware store.</p>
+
+        <div class="packages-grid">
+            <div class="pkg-card" *ngFor="let pkg of packages">
+                <div class="pkg-icon">{{ pkg.icon }}</div>
+                <div class="pkg-header">
+                    <h3>{{ pkg.name }}</h3>
+                    <span class="pkg-badge">{{ pkg.title }}</span>
+                </div>
+                <p class="pkg-desc">{{ pkg.description }}</p>
+                <div class="pkg-contains">
+                    <strong>Includes:</strong>
+                    <ul>
+                        <li *ngFor="let item of pkg.contains">{{ item }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- MODULES SECTION -->
+    <section class="section-block">
+        <h2>2. The Toolkits (Modules)</h2>
+        <p class="section-desc">Inside the packages, we find specific "Modules". To use a tool, you must import its
+            module first!</p>
+
+        <div class="modules-grid">
+            <div class="module-card" *ngFor="let mod of modules" [class.highlight-common]="mod.name === 'CommonModule'">
+                <div class="module-header">
+                    <h3>{{ mod.name }}</h3>
+                    <small>Found in <code>{{ mod.package }}</code></small>
+                </div>
+
+                <div class="analogy-box">
+                    <span class="emoji">💡</span>
+                    <span><strong>Analogy:</strong> {{ mod.analogy }}</span>
+                </div>
+
+                <p class="module-desc">{{ mod.description }}</p>
+
+                <div class="tools-list">
+                    <h4>🧰 What's inside?</h4>
+                    <div class="tool-item" *ngFor="let tool of mod.tools">
+                        <span class="tool-name">{{ tool.name }}</span>
+                        <span class="tool-desc">{{ tool.desc }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

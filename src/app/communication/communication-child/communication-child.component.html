@@ -1,0 +1,30 @@
+<div class="child-box">
+    <h3>👶 Child Component</h3>
+
+    <!-- 1. DISPLAYING INPUT FROM PARENT -->
+    <div class="section">
+        <strong>1. Input from Parent (&#64;Input):</strong>
+        <p class="highlight">{{ parentData }}</p>
+    </div>
+
+    <!-- 2. SENDING DATA TO PARENT -->
+    <div class="section">
+        <strong>2. Send to Parent (&#64;Output):</strong><br>
+        <input #childInput type="text" placeholder="Type message for parent...">
+        <button (click)="sendMessageToParent(childInput.value)">Send Event</button>
+    </div>
+
+    <!-- 3. SHARED SERVICE DATA -->
+    <div class="section">
+        <strong>3. Shared Service Data:</strong>
+        <p class="highlight">{{ sharedMessage }}</p>
+        <button (click)="updateServiceData()">Update Service Data</button>
+    </div>
+
+    <!-- FOR VIEWCHILD DEMO -->
+    <div class="section">
+        <strong>4. ViewChild Demo:</strong>
+        <p><i>Parent can trigger 'childGreet()' method here.</i></p>
+        <p *ngIf="greetMessage" class="greet-msg">{{ greetMessage }}</p>
+    </div>
+</div>
