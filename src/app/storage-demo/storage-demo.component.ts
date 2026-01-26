@@ -11,32 +11,15 @@ import { FormsModule } from '@angular/forms';
 })
 export class StorageDemoComponent implements OnInit {
 
-    // =================================================================================
-    // 💾 BROWSER STORAGE CONCEPTS
-    // =================================================================================
-
     // 1. LOCAL STORAGE
-    // Concept: "Permanent" storage in the browser.
-    // - Data stays even if you close the browser or restart the computer.
-    // - Good for: User preferences (Dark mode), Auth Tokens (Keep me logged in).
-    // - Limit: Approx 5-10MB.
-    // - Access: Shared across all tabs/windows of the same website.
     localStorageInput: string = '';
     localStorageValue: string | null = '';
 
     // 2. SESSION STORAGE
-    // Concept: "Temporary" storage for a single tab.
-    // - Data is lost immediately when you close the specific tab/window.
-    // - Good for: Sensitive data for a single session, Multi-step forms.
-    // - Access: NOT shared between tabs.
     sessionStorageInput: string = '';
     sessionStorageValue: string | null = '';
 
     // 3. COOKIES
-    // Concept: Small data meant for the SERVER.
-    // - Unlike storage, Cookies are automatically sent to the server with every HTTP request.
-    // - Used for: Server-side Authentication (Session IDs), Tracking.
-    // - Has an expiration date.
     cookieInput: string = '';
     cookieValue: string = '';
 

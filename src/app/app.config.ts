@@ -1,6 +1,7 @@
 import { ApplicationConfig, ErrorHandler, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 import { routes } from './app.routes';
 import { GlobalErrorHandler } from './core/global-error-handler.service';
@@ -11,7 +12,7 @@ export const appConfig: ApplicationConfig = {
         provideZoneChangeDetection({ eventCoalescing: true }),
         provideRouter(routes),
         provideHttpClient(withInterceptors([loggingInterceptor])),
-        // Register our custom global error handler
-        { provide: ErrorHandler, useClass: GlobalErrorHandler }
+        { provide: ErrorHandler, useClass: GlobalErrorHandler },
+        provideCharts(withDefaultRegisterables())
     ]
 };
