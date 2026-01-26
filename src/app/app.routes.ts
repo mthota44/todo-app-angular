@@ -49,7 +49,11 @@ export const routes: Routes = [
     },
 
     // --- NEW ROUTE ---
-    // Protected by AuthGuard: Only logged-in users can see this page.
+    // 🛡️ AUTH GUARD USAGE:
+    // We add the 'canActivate' property to the route configuration.
+    // It accepts an array of guards (functions or classes).
+    // Angular will run 'authGuard' BEFORE loading 'Day5Component'.
+    // If authGuard returns false, this route is BLOCKED.
     { path: 'day5', component: Day5Component, canActivate: [authGuard] },
 
     // --- COMMUNICATION CONCEPTS ROUTE ---
