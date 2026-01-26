@@ -1,0 +1,9 @@
+/* Minimal Styling */
+button {
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+input {
+    padding: 5px;
+}

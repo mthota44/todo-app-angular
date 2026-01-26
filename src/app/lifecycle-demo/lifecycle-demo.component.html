@@ -1,0 +1,31 @@
+<div>
+    <h2>♻️ Lifecycle Hooks</h2>
+    <p>Open <strong>Console (F12)</strong> to see the logs.</p>
+
+    <div style="border: 1px solid black; padding: 10px; margin-bottom: 20px;">
+        <h3>Parent Controls</h3>
+
+        <!-- TOGGLE -->
+        <button (click)="toggleChild()">
+            {{ isChildVisible ? 'DESTROY Child 💀' : 'CREATE Child 👶' }}
+        </button>
+        <br><br>
+
+        <!-- INPUT CHANGE -->
+        <div *ngIf="isChildVisible">
+            <label>Change Data: </label>
+            <input type="text" [(ngModel)]="parentInput" placeholder="Type here...">
+            <br>
+            <small>(Typing here triggers ngOnChanges)</small>
+        </div>
+    </div>
+
+    <!-- CHILD COMPONENT -->
+    <div *ngIf="isChildVisible" style="border: 2px solid green; padding: 10px;">
+        <app-lifecycle-child [data]="parentInput"></app-lifecycle-child>
+    </div>
+
+    <div *ngIf="!isChildVisible" style="border: 2px dashed red; padding: 10px; color: red;">
+        Component is NOT here (Destroyed).
+    </div>
+</div>

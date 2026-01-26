@@ -1,0 +1,41 @@
+<div>
+    <h2>⚡ Signals Demo (Angular Recent Version)</h2>
+    <p>Signals are a new, easier way to handle data updates.</p>
+
+    <div style="border: 2px solid purple; padding: 15px; margin-bottom: 20px;">
+        <h3>👨‍💻 Parent Component</h3>
+
+        <!-- 1. SENDING DATA -->
+        <div>
+            <label>1. Send to Child: </label>
+            <input type="text" [(ngModel)]="parentMessage" placeholder="Type here...">
+        </div>
+        <br>
+
+        <!-- 2. TWO-WAY BINDING -->
+        <div>
+            <label>2. Shared Counter: </label>
+            <button (click)="counter = counter - 1">-</button>
+            <span style="font-weight: bold; margin: 0 10px;">{{ counter }}</span>
+            <button (click)="counter = counter + 1">+</button>
+            <br>
+            <small>(Changes here update child automatically)</small>
+        </div>
+        <br>
+
+        <!-- 3. OUTPUT LOG -->
+        <div *ngIf="lastLog" style="background: yellow; padding: 5px;">
+            <strong>Received:</strong> {{ lastLog }}
+        </div>
+
+    </div>
+
+    <!-- CHILD COMPONENT -->
+    <!-- 
+       [dataFromParent] -> Passing data DOWN (Signal Input)
+       [(countModel)]   -> Two-way Sync (Signal Model)
+       (onBellRing)     -> Listening to Event UP (Signal Output)
+  -->
+    <app-modern-child [dataFromParent]="parentMessage" [(countModel)]="counter" (onBellRing)="handleRing($event)">
+    </app-modern-child>
+</div>

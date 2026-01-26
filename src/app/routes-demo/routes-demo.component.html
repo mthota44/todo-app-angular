@@ -1,0 +1,53 @@
+<div>
+    <h2>🗺️ Routing Concepts (Simplified)</h2>
+    <p>Routing is just switching views without refreshing the page.</p>
+    <hr>
+
+    <!-- 1. HTML LINK -->
+    <div>
+        <h3>1. Using HTML Link (RouterLink)</h3>
+        <p>This is like a normal <code>&lt;a href&gt;</code> tag, but for Angular.</p>
+
+        <!-- We use routerLink instead of href -->
+        <a routerLink="/routes-demo/product/101"
+            style="background: lightgreen; padding: 5px; border: 1px solid black; text-decoration: none; color: black;">
+            Go to Product 101
+        </a>
+    </div>
+    <hr>
+
+    <!-- 2. TS NAVIGATION -->
+    <div>
+        <h3>2. Using JavaScript (TS) Logic</h3>
+        <p>Use this when you need to do something *before* moving (like checking login).</p>
+
+        <!-- Method A -->
+        <p><strong>A. navigate(['path', 'param'])</strong> - Best for Lists</p>
+        <button (click)="goWithNavigate()">Go to Product 202 (Array)</button>
+
+        <br><br>
+
+        <!-- Method B -->
+        <p><strong>B. navigateByUrl('/path/param')</strong> - Best for Strings</p>
+        <button (click)="goWithNavigateByUrl()">Go to Product 303 (String)</button>
+    </div>
+    <hr>
+
+    <!-- 3. QUERY PARAMS -->
+    <div>
+        <h3>3. Query Parameters</h3>
+        <p>Extra info in URL like <code>?filter=red&sort=price</code></p>
+        <button (click)="goWithQuery()">Search for iPhone</button>
+    </div>
+    <hr>
+
+    <!-- CHILD OUTLET -->
+    <div style="background: #eee; padding: 10px; border: 2px dashed black;">
+        <h3>📺 Router Outlet</h3>
+        <p>The Child Component (Product Detail) will appear inside this box below:</p>
+
+        <!-- THIS IS WHERE THE CHILD LOADS -->
+        <router-outlet></router-outlet>
+    </div>
+
+</div>

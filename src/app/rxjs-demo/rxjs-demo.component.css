@@ -1,0 +1,15 @@
+/* CSS removed as requested to keep things simple */
+div {
+    font-family: sans-serif;
+}
+
+button {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-right: 5px;
+}
+
+input {
+    padding: 5px;
+    margin-right: 5px;
+}

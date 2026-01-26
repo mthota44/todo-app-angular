@@ -1,0 +1,13 @@
+/* Minimal Styling */
+button {
+    cursor: pointer;
+    background: teal;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+}
+
+input {
+    width: 60px;
+    padding: 5px;
+}

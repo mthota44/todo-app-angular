@@ -1,0 +1,23 @@
+/* Minimal Styling */
+div {
+    font-family: sans-serif;
+    margin-bottom: 10px;
+}
+
+h2,
+h3 {
+    margin-bottom: 5px;
+}
+
+button {
+    cursor: pointer;
+    padding: 5px 10px;
+    background: #ddd;
+    border: 1px solid #999;
+}
+
+hr {
+    margin: 15px 0;
+    border: 0;
+    border-top: 1px solid #ccc;
+}

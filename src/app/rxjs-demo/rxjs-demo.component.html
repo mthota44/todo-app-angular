@@ -1,0 +1,47 @@
+<div>
+    <h2>RxJS Simplified Demo</h2>
+    <p>Open your Browser Console (F12) to see some logs too!</p>
+    <hr>
+
+    <!-- SECTION 1: OBSERVABLE -->
+    <div style="margin-bottom: 20px; border: 1px solid black; padding: 10px;">
+        <h3>1. Observable (YouTube Video)</h3>
+        <p>Click to watch the video stream. Notice it takes time.</p>
+
+        <button (click)="startVideo()">Watch Video (Subscribe)</button>
+
+        <ul>
+            <li *ngFor="let msg of videoLogs">{{ msg }}</li>
+        </ul>
+    </div>
+
+    <!-- SECTION 2: SUBJECT -->
+    <div style="margin-bottom: 20px; border: 1px solid black; padding: 10px;">
+        <h3>2. Subject (Live Notification)</h3>
+        <p>First JOIN the channel, then SEND a message.</p>
+
+        <button (click)="joinNotificationChannel()">1. Join Channel (Subscribe)</button>
+        <br><br>
+        <input #msgInput type="text" placeholder="Enter message">
+        <button (click)="sendNotification(msgInput.value)">2. Broadcast Message</button>
+
+        <p><strong>Notifications Received:</strong></p>
+        <ul>
+            <li *ngFor="let note of notificationLogs">{{ note }}</li>
+        </ul>
+    </div>
+
+    <!-- SECTION 3: BEHAVIOR SUBJECT -->
+    <div style="margin-bottom: 20px; border: 1px solid black; padding: 10px;">
+        <h3>3. BehaviorSubject (Scoreboard)</h3>
+        <p>Even if you join late, you see the current score immediately.</p>
+
+        <p><strong>Current Score on Board: {{ currentScore }}</strong></p>
+
+        <button (click)="increaseScore()">Score Goal (+1)</button>
+
+        <br><br>
+        <button (click)="checkScore()">Check Score (Late Subscriber)</button>
+        <p>{{ lateSubscriberMsg }}</p>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div style="margin-top: 15px; padding: 15px; background: #e0f2f1; border: 2px solid #009688;">
+    <h3>👶 Signals Child Component</h3>
+
+    <!-- 1. SIGNAL INPUT -->
+    <div>
+        <strong>1. Signal Input:</strong>
+        <!-- We read Signals like a function: dataFromParent() -->
+        <span style="font-weight: bold; color: teal;">{{ dataFromParent() }}</span>
+    </div>
+    <br>
+
+    <!-- 2. SIGNAL MODEL -->
+    <div>
+        <strong>2. Signal Model (Synced):</strong>
+        <input [ngModel]="countModel()" (ngModelChange)="countModel.set($event)" type="number">
+        <br>
+        <small>(Change this, parent updates too)</small>
+    </div>
+    <br>
+
+    <!-- 3. OUTPUT -->
+    <div>
+        <strong>3. Signal Output:</strong>
+        <button (click)="sendNotification()">🔔 Ring Bell</button>
+    </div>
+
+</div>

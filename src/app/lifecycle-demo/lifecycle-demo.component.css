@@ -1,0 +1,13 @@
+/* Minimal Styling */
+button {
+    cursor: pointer;
+    padding: 10px;
+    font-weight: bold;
+    background: #eee;
+    border: 1px solid #333;
+}
+
+input {
+    padding: 5px;
+    margin-top: 5px;
+}
