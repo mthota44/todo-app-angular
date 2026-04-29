@@ -1,41 +1,86 @@
 <div>
-    <h2>⚡ Signals Demo (Angular Recent Version)</h2>
-    <p>Signals are a new, easier way to handle data updates.</p>
+    <h1>Angular Signals Explained (v16/v17+)</h1>
+    <p>Signals are Angular's new reactive primitive. They represent a value that can change over time and automatically notify anything that depends on it (like templates or computed values) when it changes.</p>
 
-    <div style="border: 2px solid purple; padding: 15px; margin-bottom: 20px;">
-        <h3>👨‍💻 Parent Component</h3>
+    <hr>
 
-        <!-- 1. SENDING DATA -->
+    <h2>1. The Basics: Writable Signals</h2>
+    <p>A WritableSignal is created using <code>signal(initialValue)</code>. You read it by calling it like a function: <code>mySignal()</code>. You can change it using <code>.set()</code> or <code>.update()</code>.</p>
+    
+    <div>
+        <strong>Current Value:</strong> {{ basicSignal() }}
+    </div>
+    <br>
+    <button (click)="incrementBasic()">.update(val => val + 1)</button>
+    <button (click)="setBasic()">.set(100)</button>
+
+    <hr>
+
+    <h2>2. Computed Signals (Derived State)</h2>
+    <p>Created using <code>computed(() => ...)</code>. It automatically tracks any signals you read inside it. It only recalculates when its dependencies change, and its value is cached (memoized). It is Read-Only.</p>
+    
+    <div>
+        <strong>Computed Value:</strong> {{ computedSignal() }}
+    </div>
+
+    <hr>
+
+    <h2>3. Effects (Side Effects)</h2>
+    <p>An <code>effect(() => ...)</code> runs immediately at least once, and then runs again anytime a tracked signal inside it changes. Useful for things like logging, local storage, or API calls, but NOT for setting other signals (by default).</p>
+
+    <h2>4. Advanced / Edge Cases: <code>untracked()</code></h2>
+    <p>Sometimes you need to read a signal inside an <code>effect</code> or <code>computed</code> WITHOUT triggering a re-run when that specific signal changes. You use <code>untracked()</code>.</p>
+    
+    <div>
+        <button (click)="updateSecondary()">Update Secondary Signal</button>
+        <p><em>Notice that clicking this button does NOT trigger the effect below, because we read it using untracked(). The effect only runs when you click the Basic Signal buttons above!</em></p>
+    </div>
+
+    <h4>Effect Execution Log:</h4>
+    <ul>
+        <li *ngFor="let log of effectLog">{{ log }}</li>
+    </ul>
+
+    <hr>
+
+    <h2>5. Advanced / Edge Cases: Custom Equality Function</h2>
+    <p>By default, signals check if the value changed using <code>===</code> (referential equality). For objects, you can provide a custom equality function to prevent unnecessary updates if the logical data hasn't changed.</p>
+    
+    <div>
+        <strong>User Data (ID determines equality):</strong> {{ userSignal() | json }}
+    </div>
+    <br>
+    <button (click)="updateUserSameId()">Set Same ID (No UI Update)</button>
+    <button (click)="updateUserDifferentId()">Set Different ID (Triggers Update)</button>
+    <p><em>Clicking "Same ID" changes the name in memory, but because our custom equality function says "if ID is same, it's equal", Angular does not trigger a re-render!</em></p>
+
+    <hr>
+
+    <h2>6. Signals in Component Communication</h2>
+    <p>Signals are also used to replace &#64;Input, &#64;Output, and two-way binding.</p>
+
+    <div>
+        <h3>👨‍💻 Parent Component (Demo)</h3>
+
         <div>
-            <label>1. Send to Child: </label>
+            <label>1. Send to Child (Signal Input): </label>
             <input type="text" [(ngModel)]="parentMessage" placeholder="Type here...">
         </div>
         <br>
 
-        <!-- 2. TWO-WAY BINDING -->
         <div>
-            <label>2. Shared Counter: </label>
+            <label>2. Shared Counter (Signal Model): </label>
             <button (click)="counter = counter - 1">-</button>
-            <span style="font-weight: bold; margin: 0 10px;">{{ counter }}</span>
+            <span style="margin: 0 10px;">{{ counter }}</span>
             <button (click)="counter = counter + 1">+</button>
-            <br>
-            <small>(Changes here update child automatically)</small>
         </div>
         <br>
 
-        <!-- 3. OUTPUT LOG -->
-        <div *ngIf="lastLog" style="background: yellow; padding: 5px;">
-            <strong>Received:</strong> {{ lastLog }}
+        <div *ngIf="lastLog">
+            <strong>Received (Signal Output):</strong> {{ lastLog }}
         </div>
 
+        <app-modern-child [dataFromParent]="parentMessage" [(countModel)]="counter" (onBellRing)="handleRing($event)">
+        </app-modern-child>
     </div>
-
-    <!-- CHILD COMPONENT -->
-    <!-- 
-       [dataFromParent] -> Passing data DOWN (Signal Input)
-       [(countModel)]   -> Two-way Sync (Signal Model)
-       (onBellRing)     -> Listening to Event UP (Signal Output)
-  -->
-    <app-modern-child [dataFromParent]="parentMessage" [(countModel)]="counter" (onBellRing)="handleRing($event)">
-    </app-modern-child>
 </div>

@@ -1,0 +1,109 @@
+<div class="questions-container">
+  <h1>Doubts & Questions</h1>
+
+  <div class="faq-item">
+    <button class="faq-question" (click)="toggleAnswer()">
+      <div class="question-text">
+        <strong>Q:</strong> Why didn't Angular implement a Virtual DOM like React? Google has lots of money, if it believed it could, why didn't it? What is the reason?
+      </div>
+      <div class="icon">{{ isAnswerVisible() ? '−' : '+' }}</div>
+    </button>
+    
+    @if (isAnswerVisible()) {
+      <div class="faq-answer">
+        <p>
+          It's a great question! It's not about a lack of money or capability. It's about a fundamentally different architectural choice and philosophy regarding how a web framework should update the browser. Google absolutely could have built a Virtual DOM, but they chose a different path: <strong>Real DOM + Incremental DOM (and now Signals).</strong>
+        </p>
+
+        <h3>1. The React Way: Virtual DOM</h3>
+        <p>
+          React creates a complete "Virtual" copy of your UI in memory. When data changes, React:
+          <br>1. Builds a <em>new</em> Virtual DOM tree.
+          <br>2. Compares (diffs) the new Virtual DOM with the old one.
+          <br>3. Calculates exactly what changed.
+          <br>4. Updates the Real DOM <em>only</em> where necessary.
+        </p>
+        <p><strong>Pros:</strong> Fast DOM updates because real DOM manipulation is slow. <br><strong>Cons:</strong> High memory usage (keeping two copies of the DOM in memory) and the "diffing" process itself takes CPU time, even for small changes.</p>
+
+        <h3>2. The Angular Way: Incremental DOM (Ivy Engine)</h3>
+        <p>
+          Angular's rendering engine (called Ivy) doesn't use a Virtual DOM. Instead, it compiles your HTML templates into a series of JavaScript instructions that directly create and update the Real DOM. This technique is called <strong>Incremental DOM</strong>.
+        </p>
+        <p>
+          When data changes, Angular doesn't compare two huge trees in memory. It just executes the specific instructions related to the changed data to patch the Real DOM directly.
+        </p>
+        <p><strong>Pros:</strong> Excellent memory efficiency (no extra trees stored). The application bundle is smaller because the instructions are tree-shakable. <br><strong>Cons:</strong> Historically, figuring out <em>when</em> to run those instructions (Change Detection via Zone.js) was complex, as it checked the whole component tree.</p>
+
+        <h3>3. The Modern Angular Way: Signals 🚀</h3>
+        <p>
+          Angular is now moving away from Zone.js and embracing <strong>Signals</strong>. Signals give Angular fine-grained reactivity.
+          When a Signal changes, Angular knows <em>exactly</em> which specific piece of the UI needs to update, without checking the entire application and without diffing a Virtual DOM.
+        </p>
+
+        <div class="demo-box">
+          <h4>Practical Analogy & Demo Concept</h4>
+          <p>Imagine a giant wall of 10,000 lightbulbs. You need to turn on bulb #5,432.</p>
+          <ul>
+            <li><strong>Virtual DOM (React):</strong> Take a photo of the current wall. Plan a new wall where #5,432 is on. Compare the new plan with the photo. Realize only #5,432 changed. Walk to the wall and flip that one switch. <em>(Smart, but taking photos and comparing takes effort).</em></li>
+            <li><strong>Old Angular (Zone.js):</strong> Someone yells "A bulb needs to change!". Angular walks the entire wall, checking every single bulb to see if its intended state matches its current state. Finds #5,432 and flips it. <em>(No photos needed, but checking everything takes time).</em></li>
+            <li><strong>Modern Angular (Signals + Incremental DOM):</strong> Bulb #5,432 is wired directly to a specific switch. When you flip the switch, only that bulb turns on instantly. No photos, no checking the whole wall. <strong>This is the ultimate reason Angular doesn't need a Virtual DOM!</strong></li>
+          </ul>
+        </div>
+
+        <p class="summary">
+          <strong>Summary:</strong> Angular skipped the Virtual DOM because Incremental DOM (especially when combined with modern Signals) provides a more memory-efficient and direct way to update the browser without the overhead of diffing large in-memory objects.
+        </p>
+      </div>
+    }
+  </div>
+
+  <div class="faq-item" style="margin-top: 1.5rem;">
+    <button class="faq-question" (click)="toggleAnswer2()">
+      <div class="question-text">
+        <strong>Q:</strong> What concepts do Signals replace? Do they replace RxJS concepts as well?
+      </div>
+      <div class="icon">{{ isAnswer2Visible() ? '−' : '+' }}</div>
+    </button>
+    
+    @if (isAnswer2Visible()) {
+      <div class="faq-answer">
+        <p>
+          Signals are replacing several older, core Angular concepts related to state and component communication, but <strong>they DO NOT entirely replace RxJS.</strong> Instead, they complement each other.
+        </p>
+
+        <h3>1. What Signals DO Replace</h3>
+        <ul>
+          <li><strong>&#64;Input() and &#64;Output():</strong> Replaced by Signal-based <code>input()</code>, <code>output()</code>, and two-way <code>model()</code>.</li>
+          <li><strong>ngOnChanges Lifecycle Hook:</strong> Replaced by <code>computed()</code> and <code>effect()</code> which react cleanly to specific input changes.</li>
+          <li><strong>Complex State Management (BehaviorSubjects just for state):</strong> If you used RxJS <code>BehaviorSubject</code> just to store a simple value (like a counter or a user's name) and read it synchronously, Signals replace this entirely because they are built exactly for synchronous state.</li>
+          <li><strong>Zone.js (Eventually):</strong> Signals tell Angular exactly <em>what</em> changed, paving the way for "zoneless" Angular applications that don't need to constantly check the whole app for changes.</li>
+        </ul>
+
+        <h3>2. What Signals DO NOT Replace (RxJS)</h3>
+        <p>
+          RxJS is built for handling <strong>Asynchronous Events over Time</strong>. Signals are built for handling <strong>Synchronous State</strong>.
+        </p>
+        <p>You still absolutely need RxJS for:</p>
+        <ul>
+          <li><strong>HTTP Requests:</strong> Fetching data from a server is asynchronous. (Though you can convert the result to a Signal).</li>
+          <li><strong>Complex Event Streams:</strong> e.g., Debouncing a user's typing in a search bar (wait 500ms before searching).</li>
+          <li><strong>WebSockets & Timeouts:</strong> Streams of data arriving at unpredictable times.</li>
+          <li><strong>Race Conditions:</strong> Using things like <code>switchMap</code> to cancel an old request when a new one fires.</li>
+        </ul>
+
+        <div class="demo-box">
+          <h4>The Best of Both Worlds</h4>
+          <p>Angular provides built-in tools to use them together seamlessly:</p>
+          <ul>
+            <li><code>toSignal(observable$)</code>: Take an RxJS stream (like an HTTP call) and turn its final result into a Signal so the template can easily render it without the <code>async</code> pipe.</li>
+            <li><code>toObservable(signal)</code>: Take a Signal and turn it into a stream, so you can do complex RxJS magic (like debouncing) when the signal changes.</li>
+          </ul>
+        </div>
+        
+        <p class="summary">
+          <strong>Summary:</strong> Use <strong>Signals</strong> for knowing the current state of things (e.g., "Is the menu open?", "What is the counter value?"). Use <strong>RxJS</strong> for complex asynchronous pipelines (e.g., "Wait 1 second, fetch data, retry 3 times if it fails").
+        </p>
+      </div>
+    }
+  </div>
+</div>

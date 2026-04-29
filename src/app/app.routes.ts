@@ -142,6 +142,12 @@ export const routes: Routes = [
         loadComponent: () => import('./storage-demo/storage-demo.component').then(m => m.StorageDemoComponent)
     },
 
+    // --- QUESTIONS & DOUBTS ---
+    {
+        path: 'questions',
+        loadComponent: () => import('./questions/questions.component').then(m => m.QuestionsComponent)
+    },
+
     // --- REDIRECT ROUTE & DEFAULT PATH ---
     // Concept: Handling the empty path (Root URL: localhost:4200/)
     // 'redirectTo': Tells Angular to go to another path immediately.

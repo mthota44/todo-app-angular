@@ -1,0 +1,21 @@
+import { Component, signal } from '@angular/core';
+
+@Component({
+  selector: 'app-questions',
+  standalone: true,
+  imports: [],
+  templateUrl: './questions.component.html',
+  styleUrl: './questions.component.css'
+})
+export class QuestionsComponent {
+  isAnswerVisible = signal(false);
+  isAnswer2Visible = signal(false);
+
+  toggleAnswer() {
+    this.isAnswerVisible.set(!this.isAnswerVisible());
+  }
+
+  toggleAnswer2() {
+    this.isAnswer2Visible.set(!this.isAnswer2Visible());
+  }
+}
